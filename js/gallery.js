@@ -32,14 +32,14 @@ const DESTINATIONS = [
     name:    'Meghalaya',
     country: 'India',
     tagline: 'Abode of Clouds',
-    images:  range(12).map(n => `meghalaya-${pad(n)}.jpg`),
+    images:  range(18).map(n => `meghalaya-${pad(n)}.jpg`),
   },
   {
     id:      'agra',
     name:    'Agra',
     country: 'India',
     tagline: 'City of the Taj Mahal',
-    images:  range(6).map(n => `agra-${pad(n)}.jpg`),
+    images:  range(8).map(n => `agra-${pad(n)}.jpg`),
   },
   {
     id:      'bandarbans',
@@ -53,7 +53,7 @@ const DESTINATIONS = [
     name:    'Kushtia',
     country: 'Bangladesh',
     tagline: 'Land of the Baul Saints',
-    images:  ['kustia-01.jpg', 'kustia-02.jpg'],
+    images:  ['kustia-01.jpg', 'kustia-02.jpg', 'kustia-03.jpg'],
   },
   {
     id:      'coxs-bazar',
@@ -95,7 +95,7 @@ const DESTINATIONS = [
     name:    'Delhi',
     country: 'India',
     tagline: 'Heart of India',
-    images:  range(7).map(n => `delhi-${pad(n)}.jpg`),
+    images:  range(12).map(n => `delhi-${pad(n)}.jpg`),
   },
 ];
 
@@ -228,7 +228,7 @@ function filterBy(filter) {
   const dest  = DESTINATIONS.find(d => d.id === filter);
   $('galleryCount').textContent = dest
     ? `${count} photo${count > 1 ? 's' : ''} from ${dest.name}`
-    : `${count} photos across 12 destinations`;
+    : `${ALL_PHOTOS.length} photos across ${DESTINATIONS.length} destinations`;
 
   renderPhotos();
 }
