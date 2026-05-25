@@ -77,6 +77,13 @@ const DESTINATIONS = [
     images:  ['saint-martin-01.jpg'],
   },
   {
+    id:      'sunamganj',
+    name:    'Sunamganj',
+    country: 'Bangladesh',
+    tagline: 'Land of the Haors',
+    images:  range(5).map(n => `sunamganj-${pad(n)}.jpg`),
+  },
+  {
     id:      'gazipur',
     name:    'Gazipur',
     country: 'Bangladesh',
@@ -88,7 +95,7 @@ const DESTINATIONS = [
     name:    'Delhi',
     country: 'India',
     tagline: 'Heart of India',
-    images:  range(9).map(n => `delhi-${pad(n)}.jpg`),
+    images:  range(7).map(n => `delhi-${pad(n)}.jpg`),
   },
 ];
 
@@ -221,7 +228,7 @@ function filterBy(filter) {
   const dest  = DESTINATIONS.find(d => d.id === filter);
   $('galleryCount').textContent = dest
     ? `${count} photo${count > 1 ? 's' : ''} from ${dest.name}`
-    : `${count} photos across 9 destinations`;
+    : `${count} photos across 12 destinations`;
 
   renderPhotos();
 }
