@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel with Faisal — Photography Portfolio</title>
+  <meta name="description" content="A visual journey through Bangladesh, India and beyond — travel photography portfolio by Faisal.">
+  <meta property="og:title" content="Travel with Faisal">
+  <meta property="og:description" content="A visual journey through Bangladesh, India and beyond.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        Travel with Faisal
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-drawer" id="navDrawer" role="navigation" aria-label="Mobile navigation">
+      <a href="#destinations" class="drawer-link">Destinations</a>
+      <a href="#gallery" class="drawer-link">Gallery</a>
+      <a href="#about" class="drawer-link">About</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <header class="hero" id="top">
+    <div class="hero-bg" id="heroBg" aria-hidden="true">
+      <!-- Slides injected by JS -->
+    </div>
+    <div class="hero-vignette" aria-hidden="true"></div>
+    <div class="hero-body">
+      <p class="hero-eyebrow">Photography Portfolio</p>
+      <h1 class="hero-heading">
+        Explore the<br><em>World's Beauty</em>
+      </h1>
+      <p class="hero-sub">A visual journey through Bangladesh, India &amp; beyond</p>
+      <a href="#gallery" class="btn-primary">
+        View Gallery
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="hero-slide-info" aria-live="polite">
+      <span id="slideNum">01</span>
+      <span class="slide-sep" aria-hidden="true">—</span>
+      <span id="slideName">Sajek Valley</span>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">
+      <div class="scroll-cue-line"></div>
+    </div>
+  </header>
+
+  <!-- ── Stats ── -->
+  <div class="stats-strip" role="region" aria-label="Portfolio statistics">
+    <div class="stat">
+      <strong id="statPhotos">54</strong>
+      <span>Photos</span>
+    </div>
+    <div class="stat-rule" aria-hidden="true"></div>
+    <div class="stat">
+      <strong>9</strong>
+      <span>Destinations</span>
+    </div>
+    <div class="stat-rule" aria-hidden="true"></div>
+    <div class="stat">
+      <strong>2</strong>
+      <span>Countries</span>
+    </div>
+  </div>
+
+  <!-- ── Destinations ── -->
+  <section class="section" id="destinations" aria-labelledby="dest-heading">
+    <div class="section-intro reveal">
+      <span class="eyebrow">Explore</span>
+      <h2 class="section-h" id="dest-heading">Destinations</h2>
+      <p class="section-p">Each place tells its own story</p>
+    </div>
+    <div class="dest-grid" id="destGrid">
+      <!-- Injected by JS -->
+    </div>
+  </section>
+
+  <!-- ── Gallery ── -->
+  <section class="section gallery-section" id="gallery" aria-labelledby="gallery-heading">
+    <div class="section-intro reveal">
+      <span class="eyebrow">Portfolio</span>
+      <h2 class="section-h" id="gallery-heading">All Photos</h2>
+      <p class="section-p" id="galleryCount">54 photos across 9 destinations</p>
+    </div>
+    <div class="filter-row" id="filterRow" role="tablist" aria-label="Filter by destination">
+      <!-- Injected by JS -->
+    </div>
+    <div class="masonry-grid" id="masonryGrid" role="list">
+      <!-- Injected by JS -->
+    </div>
+    <div class="load-more-row" id="loadMoreRow" hidden>
+      <button class="btn-outline" id="loadMoreBtn">Load More Photos</button>
+    </div>
+  </section>
+
+  <!-- ── About ── -->
+  <section class="about-section" id="about" aria-labelledby="about-heading">
+    <div class="about-wrap">
+      <div class="about-text reveal">
+        <span class="eyebrow">About</span>
+        <h2 class="about-h" id="about-heading">The Story<br>Behind the Lens</h2>
+        <p>A passion for travel and photography brought together in this visual diary. From the misty hills of Sajek Valley to the ancient monuments of Agra — each image captures a moment and a memory.</p>
+        <p>All photos are taken personally during travels across Bangladesh and India.</p>
+      </div>
+      <div class="about-img reveal">
+        <img src="images/meghalaya/meghalaya-07.jpg" alt="Landscape view from Meghalaya, India" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <span class="brand-mark" aria-hidden="true">✦</span>
+    <strong>Travel with Faisal</strong>
+    <p>© 2025 · All photographs by Faisal ·
+      <a href="https://github.com/faisal-delineate" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+  </footer>
+
+  <!-- ── Lightbox ── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox" hidden>
+    <div class="lb-backdrop" id="lbBackdrop"></div>
+    <button class="lb-close" id="lbClose" aria-label="Close lightbox">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous photo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next photo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <figure class="lb-figure">
+      <img class="lb-img" id="lbImg" src="" alt="">
+      <figcaption class="lb-caption">
+        <span class="lb-location" id="lbLocation"></span>
+        <span class="lb-counter" id="lbCounter"></span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- ── Back to top ── -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" hidden>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="js/gallery.js"></script>
+</body>
+</html>
