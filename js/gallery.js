@@ -76,6 +76,20 @@ const DESTINATIONS = [
     tagline: 'The Coral Island',
     images:  ['saint-martin-01.jpg'],
   },
+  {
+    id:      'gazipur',
+    name:    'Gazipur',
+    country: 'Bangladesh',
+    tagline: 'The Industrial Gateway',
+    images:  range(16).map(n => `gazipur-${pad(n)}.jpg`),
+  },
+  {
+    id:      'delhi',
+    name:    'Delhi',
+    country: 'India',
+    tagline: 'Heart of India',
+    images:  range(9).map(n => `delhi-${pad(n)}.jpg`),
+  },
 ];
 
 // Flat list: { src, destId, destName }
