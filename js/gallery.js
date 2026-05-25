@@ -121,6 +121,7 @@ let touchStartX     = null;
 // ── Init ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   buildHero();
+  buildHeroDots();
   buildDestinations();
   buildFilters();
   renderPhotos();
@@ -129,6 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initBackToTop();
   startHeroSlideshow();
+  initProgressBar();
+  initCounters();
+  initActiveNav();
 });
 
 // ── Hero Slideshow ─────────────────────────────────────────
@@ -152,9 +156,50 @@ function startHeroSlideshow() {
     slides[heroSlideIndex].classList.remove('active');
     heroSlideIndex = (heroSlideIndex + 1) % slides.length;
     slides[heroSlideIndex].classList.add('active');
-    $('slideNum').textContent = slides[heroSlideIndex].dataset.num;
+    $('slideNum').textContent  = slides[heroSlideIndex].dataset.num;
     $('slideName').textContent = slides[heroSlideIndex].dataset.name;
+    syncDots(heroSlideIndex);
   }, 5500);
+}
+
+function syncDots(index) {
+  document.querySelectorAll('.hero-dot').forEach((dot, i) => {
+    const active = i === index;
+    dot.classList.toggle('active', active);
+    dot.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+}
+
+function buildHeroDots() {
+  const hero = document.querySelector('.hero');
+  const container = document.createElement('div');
+  container.className = 'hero-dots';
+  container.setAttribute('role', 'tablist');
+  container.setAttribute('aria-label', 'Slideshow navigation');
+
+  DESTINATIONS.forEach((dest, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', `${dest.name} — slide ${i + 1}`);
+    dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    dot.addEventListener('click', () => goToSlide(i));
+    container.appendChild(dot);
+  });
+
+  hero.appendChild(container);
+}
+
+function goToSlide(index) {
+  const slides = document.querySelectorAll('.hero-slide');
+  slides[heroSlideIndex].classList.remove('active');
+  heroSlideIndex = index;
+  slides[heroSlideIndex].classList.add('active');
+  $('slideNum').textContent  = slides[heroSlideIndex].dataset.num;
+  $('slideName').textContent = slides[heroSlideIndex].dataset.name;
+  syncDots(heroSlideIndex);
+  clearInterval(heroTimer);
+  startHeroSlideshow();
 }
 
 // ── Destinations Grid ──────────────────────────────────────
@@ -254,6 +299,12 @@ function renderPhotos() {
       <img src="${photo.src}" alt="Photo from ${photo.destName}" loading="lazy">
       <div class="photo-item-overlay" aria-hidden="true">
         <span class="photo-item-label">${photo.destName}</span>
+      </div>
+      <div class="photo-item-expand" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+          <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>
       </div>
     `;
     item.addEventListener('click', () => openLightbox(visible, i));
@@ -391,6 +442,63 @@ function initScrollReveal() {
   // Also observe destination cards once they're in the DOM
   // (cards are added with .reveal class, so they're picked up above
   //  if buildDestinations runs before initScrollReveal — which it does)
+}
+
+// ── Scroll Progress Bar ───────────────────────────────────
+function initProgressBar() {
+  const bar = $('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if (max <= 0) return;
+    bar.style.width = (window.scrollY / max * 100) + '%';
+  }, { passive: true });
+}
+
+// ── Animated Stat Counters ─────────────────────────────────
+function initCounters() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.textContent.replace(/\D/g, ''), 10);
+      if (isNaN(target) || target === 0) return;
+      animateCount(el, target);
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.8 });
+
+  document.querySelectorAll('.stat strong').forEach(el => obs.observe(el));
+}
+
+function animateCount(el, target) {
+  const duration = 1600;
+  const start = performance.now();
+  const tick = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 4);
+    el.textContent = Math.round(eased * target);
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+// ── Active Nav Section ─────────────────────────────────────
+function initActiveNav() {
+  const ids = ['destinations', 'gallery', 'about'];
+  const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
+  const links    = document.querySelectorAll('.nav-links a');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      links.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+      });
+    });
+  }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+
+  sections.forEach(s => obs.observe(s));
 }
 
 // ── Back to Top ────────────────────────────────────────────

@@ -828,6 +828,86 @@ ul    { list-style: none; }
   .filter-btn   { padding: 7px 14px; font-size: 0.74rem; }
 }
 
+/* ── Scroll Progress Bar ── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(to right, var(--accent), #e8c97a);
+  z-index: 300;
+  pointer-events: none;
+  transition: width 0.08s linear;
+  will-change: width;
+}
+
+/* ── Hero Slideshow Dots ── */
+.hero-dots {
+  position: absolute;
+  bottom: 116px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.hero-dot {
+  height: 5px;
+  width: 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.28);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.3s var(--ease), background 0.3s var(--ease);
+}
+.hero-dot.active {
+  width: 24px;
+  background: var(--accent);
+}
+.hero-dot:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Active Nav Link ── */
+.nav-links a.active {
+  color: var(--text-1);
+}
+.nav-links a.active::after {
+  transform: scaleX(1);
+}
+
+/* ── Photo Item Expand Icon ── */
+.photo-item-expand {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.photo-item-expand svg {
+  width: 11px;
+  height: 11px;
+  stroke: rgba(255, 255, 255, 0.9);
+  flex-shrink: 0;
+}
+.photo-item:hover .photo-item-expand {
+  opacity: 1;
+  transform: scale(1);
+}
+
 /* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
