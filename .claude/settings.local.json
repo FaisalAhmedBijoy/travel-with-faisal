@@ -4,7 +4,8 @@
       "PowerShell(Get-ChildItem \"e:\\\\Code and Tutorial Practice\\\\Web development\\\\travel-with-faisal\\\\images\\\\gazipur\" | ForEach-Object { $_.Name })",
       "PowerShell(& \"C:\\\\ffmpeg\\\\bin\\\\ffmpeg.exe\" -i \"e:\\\\Code and Tutorial Practice\\\\Web development\\\\travel-with-faisal\\\\images\\\\delhi\\\\IMG_5305.HEIC\" -frames:v 1 -update 1 -q:v 2 -y \"e:\\\\Code and Tutorial Practice\\\\Web development\\\\travel-with-faisal\\\\images\\\\delhi\\\\test_out.jpg\" 2>&1)",
       "PowerShell(& \"C:\\\\Users\\\\User\\\\anaconda3\\\\python.exe\" -m pip install pillow-heif)",
-      "PowerShell(Get-ChildItem \"e:\\\\Code and Tutorial Practice\\\\Web development\\\\travel-with-faisal\\\\images\\\\delhi\" -File | ForEach-Object { $_.Name })"
+      "PowerShell(Get-ChildItem \"e:\\\\Code and Tutorial Practice\\\\Web development\\\\travel-with-faisal\\\\images\\\\delhi\" -File | ForEach-Object { $_.Name })",
+      "PowerShell(Get-ChildItem -Path \"e:\\\\Code and Tutorial Practice\\\\Web development\\\\travel-with-faisal\\\\images\\\\rangamati\" -Force | ForEach-Object { $_.Name })"
     ]
   }
 }

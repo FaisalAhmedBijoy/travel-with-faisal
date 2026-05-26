@@ -67,7 +67,7 @@ const DESTINATIONS = [
     name:    'Rangamati',
     country: 'Bangladesh',
     tagline: 'The Lake District',
-    images:  ['rangamati-01.jpeg'],
+    images:  range(15).map(n => `rangamati-${pad(n)}.jpg`),
   },
   {
     id:      'saint-martin',
