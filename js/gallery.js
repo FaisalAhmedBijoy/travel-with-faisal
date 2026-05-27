@@ -18,6 +18,7 @@ const DESTINATIONS = [
     name:    'Sajek Valley',
     country: 'Bangladesh',
     tagline: 'Queen of the Hills',
+    lat:     23.3840, lng: 92.2939,
     images:  range(14).map(n => `sajek-${pad(n)}.jpg`),
   },
   {
@@ -25,6 +26,7 @@ const DESTINATIONS = [
     name:    'Sreemangal',
     country: 'Bangladesh',
     tagline: 'The Tea Capital',
+    lat:     24.3070, lng: 91.7326,
     images:  range(14).map(n => `sreemangal-${pad(n)}.jpg`),
   },
   {
@@ -32,6 +34,7 @@ const DESTINATIONS = [
     name:    'Meghalaya',
     country: 'India',
     tagline: 'Abode of Clouds',
+    lat:     25.5788, lng: 91.8933,
     images:  range(18).map(n => `meghalaya-${pad(n)}.jpg`),
   },
   {
@@ -39,6 +42,7 @@ const DESTINATIONS = [
     name:    'Agra',
     country: 'India',
     tagline: 'City of the Taj Mahal',
+    lat:     27.1767, lng: 78.0081,
     images:  range(8).map(n => `agra-${pad(n)}.jpg`),
   },
   {
@@ -46,6 +50,7 @@ const DESTINATIONS = [
     name:    'Bandarban',
     country: 'Bangladesh',
     tagline: 'Hills & Tribal Heritage',
+    lat:     22.1953, lng: 92.2184,
     images:  ['bandarbans-01.jpg', 'bandarbans-02.png', 'bandarbans-03.jpeg'],
   },
   {
@@ -53,6 +58,7 @@ const DESTINATIONS = [
     name:    'Kushtia',
     country: 'Bangladesh',
     tagline: 'Land of the Baul Saints',
+    lat:     23.9018, lng: 89.1257,
     images:  ['kustia-01.jpg', 'kustia-02.jpg', 'kustia-03.jpg'],
   },
   {
@@ -60,6 +66,7 @@ const DESTINATIONS = [
     name:    "Cox's Bazar",
     country: 'Bangladesh',
     tagline: "World's Longest Sea Beach",
+    lat:     21.4272, lng: 92.0058,
     images:  ['coxs-bazar-01.jfif'],
   },
   {
@@ -67,6 +74,7 @@ const DESTINATIONS = [
     name:    'Rangamati',
     country: 'Bangladesh',
     tagline: 'The Lake District',
+    lat:     22.6423, lng: 92.2066,
     images:  range(15).map(n => `rangamati-${pad(n)}.jpg`),
   },
   {
@@ -74,6 +82,7 @@ const DESTINATIONS = [
     name:    'Saint Martin',
     country: 'Bangladesh',
     tagline: 'The Coral Island',
+    lat:     20.6270, lng: 92.3213,
     images:  ['saint-martin-01.jpg'],
   },
   {
@@ -81,6 +90,7 @@ const DESTINATIONS = [
     name:    'Sunamganj',
     country: 'Bangladesh',
     tagline: 'Land of the Haors',
+    lat:     25.0660, lng: 91.3960,
     images:  range(5).map(n => `sunamganj-${pad(n)}.jpg`),
   },
   {
@@ -88,6 +98,7 @@ const DESTINATIONS = [
     name:    'Gazipur',
     country: 'Bangladesh',
     tagline: 'The Industrial Gateway',
+    lat:     23.9999, lng: 90.4203,
     images:  range(16).map(n => `gazipur-${pad(n)}.jpg`),
   },
   {
@@ -95,8 +106,18 @@ const DESTINATIONS = [
     name:    'Delhi',
     country: 'India',
     tagline: 'Heart of India',
+    lat:     28.6139, lng: 77.2090,
     images:  range(12).map(n => `delhi-${pad(n)}.jpg`),
   },
+];
+
+// ── Extra visited places (no photos yet) ──────────────────────
+// Add { name, country, tagline, lat, lng } for any place you visited
+// without images. They appear on the map as outlined dots.
+const EXTRA_PLACES = [
+  // Example:
+  { name: 'Sylhet', country: 'Bangladesh', tagline: 'City of Shrines', lat: 24.8949, lng: 91.8687 },
+  { name: 'Kolkata', country: 'India', tagline: 'City of Joy', lat: 22.5726, lng: 88.3639 },
 ];
 
 // Flat list: { src, destId, destName }
@@ -117,6 +138,8 @@ let heroTimer       = null;
 let lbPhotos        = [];
 let lbIndex         = 0;
 let touchStartX     = null;
+let leafletMap      = null;
+let leafletTile     = null;
 
 // ── Init ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -125,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buildDestinations();
   buildFilters();
   renderPhotos();
+  buildMap();
   initLightbox();
   initNavbar();
   initScrollReveal();
@@ -133,7 +157,124 @@ document.addEventListener('DOMContentLoaded', () => {
   initProgressBar();
   initCounters();
   initActiveNav();
+  initThemeSwitcher();
 });
+
+// ── Theme Switcher ─────────────────────────────────────────
+function initThemeSwitcher() {
+  const savedTheme = localStorage.getItem('twf-theme') || 'dark';
+  syncThemeUI(savedTheme);
+
+  const toggleBtn = $('themeToggleBtn');
+  const panel     = $('themePanel');
+
+  toggleBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const opening = panel.hidden;
+    panel.hidden  = !opening;
+    toggleBtn.setAttribute('aria-expanded', String(opening));
+  });
+
+  document.addEventListener('click', () => {
+    panel.hidden = true;
+    toggleBtn.setAttribute('aria-expanded', 'false');
+  });
+  panel.addEventListener('click', e => e.stopPropagation());
+
+  document.querySelectorAll('.theme-option, .drawer-theme-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      applyTheme(btn.dataset.theme);
+      panel.hidden = true;
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+function applyTheme(theme) {
+  document.documentElement.classList.add('theme-changing');
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('twf-theme', theme);
+  syncThemeUI(theme);
+  updateMapTiles();
+  setTimeout(() => document.documentElement.classList.remove('theme-changing'), 300);
+}
+
+function syncThemeUI(theme) {
+  document.querySelectorAll('.theme-option, .drawer-theme-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.theme === theme);
+  });
+}
+
+function mapTileUrl() {
+  return 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
+}
+
+function updateMapTiles() {
+  if (!leafletMap || !leafletTile) return;
+  leafletTile.remove();
+  leafletTile = L.tileLayer(mapTileUrl(), {
+    attribution: 'Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener">Esri</a>',
+    maxZoom: 18,
+  }).addTo(leafletMap);
+}
+
+// ── Travel Map ─────────────────────────────────────────────
+function buildMap() {
+  if (!window.L) return;
+  const mapEl = document.getElementById('travelMap');
+  if (!mapEl) return;
+
+  const totalPlaces = DESTINATIONS.length + EXTRA_PLACES.length;
+  const subtitle = document.getElementById('mapSubtitle');
+  if (subtitle) subtitle.textContent = `${totalPlaces} destination${totalPlaces !== 1 ? 's' : ''} explored`;
+
+  leafletMap = L.map('travelMap', { zoomControl: true, scrollWheelZoom: false });
+  const map = leafletMap;
+
+  leafletTile = L.tileLayer(mapTileUrl(), {
+    attribution: 'Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener">Esri</a>',
+    maxZoom: 18,
+  }).addTo(map);
+
+  const bounds = [];
+
+  const withPhotoStyle = {
+    radius: 9, fillColor: '#c8a96a', color: '#0d0d0d',
+    weight: 2, opacity: 1, fillOpacity: 0.9,
+  };
+  const noPhotoStyle = {
+    radius: 7, fillColor: 'transparent', color: '#c8a96a',
+    weight: 2, opacity: 0.75, fillOpacity: 0,
+  };
+
+  DESTINATIONS.forEach(dest => {
+    if (dest.lat == null) return;
+    const count = dest.images.length;
+    const photoLine = `<span class="mp-photos">${count} photo${count !== 1 ? 's' : ''}</span>`;
+    L.circleMarker([dest.lat, dest.lng], withPhotoStyle)
+      .bindPopup(popupHtml(dest.name, dest.country, dest.tagline, photoLine), { className: 'twf-popup', maxWidth: 220 })
+      .addTo(map);
+    bounds.push([dest.lat, dest.lng]);
+  });
+
+  EXTRA_PLACES.forEach(place => {
+    if (place.lat == null) return;
+    const photoLine = `<span class="mp-photos mp-no-photos">No photos yet</span>`;
+    L.circleMarker([place.lat, place.lng], noPhotoStyle)
+      .bindPopup(popupHtml(place.name, place.country, place.tagline, photoLine), { className: 'twf-popup', maxWidth: 220 })
+      .addTo(map);
+    bounds.push([place.lat, place.lng]);
+  });
+
+  if (bounds.length > 0) map.fitBounds(bounds, { padding: [48, 48] });
+
+  // Force a re-render in case the container had a sizing quirk on init
+  setTimeout(() => map.invalidateSize(), 200);
+}
+
+function popupHtml(name, country, tagline, photoLine) {
+  return `<div class="mp-inner"><strong class="mp-name">${name}</strong><span class="mp-country">${country}</span><span class="mp-tagline">${tagline}</span>${photoLine}</div>`;
+}
 
 // ── Hero Slideshow ─────────────────────────────────────────
 function buildHero() {
@@ -485,7 +626,7 @@ function animateCount(el, target) {
 
 // ── Active Nav Section ─────────────────────────────────────
 function initActiveNav() {
-  const ids = ['destinations', 'gallery', 'about'];
+  const ids = ['destinations', 'map', 'gallery', 'about'];
   const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
   const links    = document.querySelectorAll('.nav-links a');
 

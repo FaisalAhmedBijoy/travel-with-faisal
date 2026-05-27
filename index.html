@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
+  <!-- Apply saved theme before CSS renders to prevent flash -->
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('twf-theme') || 'dark');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel with Faisal — Photography Portfolio</title>
@@ -11,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -28,8 +31,20 @@
         <li><a href="#destinations">Destinations</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#map">Map</a></li>
         <li><a href="#travel-together">Travel Together</a></li>
       </ul>
+      <div class="theme-switcher" id="themeSwitcher">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Change theme" aria-expanded="false" aria-haspopup="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20V2z" fill="currentColor" stroke="none"/></svg>
+        </button>
+        <div class="theme-panel" id="themePanel" role="menu" hidden>
+          <button class="theme-option" data-theme="dark"  role="menuitem"><span class="ts-dot ts-dark"></span>Dark</button>
+          <button class="theme-option" data-theme="light" role="menuitem"><span class="ts-dot ts-light"></span>Light</button>
+          <button class="theme-option" data-theme="warm"  role="menuitem"><span class="ts-dot ts-warm"></span>Warm</button>
+          <button class="theme-option" data-theme="dusk"  role="menuitem"><span class="ts-dot ts-dusk"></span>Dusk</button>
+        </div>
+      </div>
       <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -38,7 +53,14 @@
       <a href="#destinations" class="drawer-link">Destinations</a>
       <a href="#gallery" class="drawer-link">Gallery</a>
       <a href="#about" class="drawer-link">About</a>
+      <a href="#map" class="drawer-link">Map</a>
       <a href="#travel-together" class="drawer-link">Travel Together</a>
+      <div class="drawer-theme-row" aria-label="Choose theme">
+        <button class="drawer-theme-btn" data-theme="dark"  title="Dark"><span class="ts-dot ts-dark"></span>Dark</button>
+        <button class="drawer-theme-btn" data-theme="light" title="Light"><span class="ts-dot ts-light"></span>Light</button>
+        <button class="drawer-theme-btn" data-theme="warm"  title="Warm"><span class="ts-dot ts-warm"></span>Warm</button>
+        <button class="drawer-theme-btn" data-theme="dusk"  title="Dusk"><span class="ts-dot ts-dusk"></span>Dusk</button>
+      </div>
     </div>
   </nav>
 
@@ -132,6 +154,26 @@
     </div>
   </section>
 
+  <!-- ── Map ── -->
+  <section class="section map-section" id="map" aria-labelledby="map-heading">
+    <div class="section-intro reveal">
+      <span class="eyebrow">Journey</span>
+      <h2 class="section-h" id="map-heading">My Travel Map</h2>
+      <p class="section-p" id="mapSubtitle">Every dot a memory</p>
+    </div>
+    <div id="travelMap" class="travel-map" role="img" aria-label="Interactive map of visited travel destinations"></div>
+    <div class="map-legend" aria-hidden="true">
+      <span class="map-legend-item">
+        <svg viewBox="0 0 14 14" width="14" height="14"><circle cx="7" cy="7" r="6" fill="#c8a96a"/></svg>
+        Destinations with photos
+      </span>
+      <span class="map-legend-item">
+        <svg viewBox="0 0 14 14" width="14" height="14"><circle cx="7" cy="7" r="5.5" fill="none" stroke="#c8a96a" stroke-width="2"/></svg>
+        Visited — no photos yet
+      </span>
+    </div>
+  </section>
+
   <!-- ── Travel Together ── -->
   <section class="travel-together-section" id="travel-together" aria-labelledby="together-heading">
     <div class="together-wrap reveal">
@@ -192,6 +234,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous"></script>
   <script src="js/gallery.js"></script>
 </body>
 </html>
