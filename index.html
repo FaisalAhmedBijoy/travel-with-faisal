@@ -10,7 +10,31 @@
   <meta property="og:title" content="Travel with Faisal">
   <meta property="og:description" content="A visual journey through Bangladesh, India and beyond.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="images/sajek/sajek-01.jpg">
+  <meta property="og:url" content="https://travel-with-faisal.netlify.app">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Travel with Faisal">
+  <meta name="twitter:description" content="A visual journey through Bangladesh, India and beyond.">
+  <meta name="twitter:image" content="images/sajek/sajek-01.jpg">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "name": "Travel with Faisal",
+    "description": "Travel photography portfolio by Faisal — Bangladesh, India and beyond.",
+    "url": "https://travel-with-faisal.netlify.app",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Faisal",
+      "jobTitle": "Travel Photographer",
+      "sameAs": [
+        "https://www.instagram.com/faisalahmedbijoy",
+        "https://github.com/faisalahmedbijoy"
+      ]
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -148,6 +172,20 @@
         <h2 class="about-h" id="about-heading">The Story<br>Behind the Lens</h2>
         <p>A passion for travel and photography brought together in this visual diary. From the misty hills of Sajek Valley to the ancient monuments of Agra — each image captures a moment and a memory.</p>
         <p>All photos are taken personally during travels across Bangladesh and India.</p>
+        <div class="about-socials">
+          <a class="social-btn" href="https://www.instagram.com/faisalahmedbijoy" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+            Instagram
+          </a>
+          <a class="social-btn" href="https://github.com/faisalahmedbijoy" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+          <a class="social-btn" href="mailto:faisal.cse16.kuet@gmail.com" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+            Email
+          </a>
+        </div>
       </div>
       <div class="about-img reveal">
         <img src="images/meghalaya/meghalaya-07.jpg" alt="Landscape view from Meghalaya, India" loading="lazy">
@@ -181,6 +219,31 @@
       <span class="eyebrow">Join the Journey</span>
       <h2 class="together-h" id="together-heading">Want to Travel<br><em>Together?</em></h2>
       <p class="together-p">If you'd like to explore a destination with me, go on a photography trip, or simply tag along on the next adventure — I'd love to connect. Reach out and let's plan something.</p>
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cf-name">Your Name</label>
+            <input type="text" id="cf-name" name="name" placeholder="e.g. Rashida Khan" required>
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Email Address</label>
+            <input type="email" id="cf-email" name="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cf-dest">Destination in Mind</label>
+          <input type="text" id="cf-dest" name="destination" placeholder="e.g. Sajek Valley, Meghalaya…">
+        </div>
+        <div class="form-group">
+          <label for="cf-msg">Message</label>
+          <textarea id="cf-msg" name="message" rows="4" placeholder="Tell me about your travel idea…" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary form-submit-btn">
+          Send Message
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <p class="form-feedback" id="formFeedback" hidden></p>
+      </form>
       <div class="together-contacts">
         <a class="together-contact-card" href="mailto:faisal.cse16.kuet@gmail.com" aria-label="Send email to Faisal">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
@@ -200,13 +263,54 @@
     </div>
   </section>
 
+  <!-- ── Testimonials ── -->
+  <section class="testimonials-section" id="testimonials" aria-labelledby="testimonials-heading">
+    <div class="section-intro reveal">
+      <span class="eyebrow">Voices</span>
+      <h2 class="section-h" id="testimonials-heading">Travel Stories</h2>
+      <p class="section-p">Words from fellow explorers</p>
+    </div>
+    <div class="testimonials-grid">
+      <blockquote class="testimonial-card reveal">
+        <p>"Travelling with Faisal to Meghalaya was an incredible experience. His eye for beauty and perfect timing for shots made every moment magical."</p>
+        <footer>
+          <strong>Tanvir</strong>
+          <span>Meghalaya Trip · 2024</span>
+        </footer>
+      </blockquote>
+      <blockquote class="testimonial-card reveal">
+        <p>"The Sajek Valley trip felt like a dream. Faisal knows every hidden viewpoint and the best time to catch the mist rolling over the hills."</p>
+        <footer>
+          <strong>Badhon</strong>
+          <span>Sajek Valley · 2024</span>
+        </footer>
+      </blockquote>
+      <blockquote class="testimonial-card reveal">
+        <p>"Sreemangal with Faisal was a sensory feast — green tea gardens, the scent of rain, and photos I'll treasure for life. Highly recommended."</p>
+        <footer>
+          <strong>Mahmud</strong>
+          <span>Sreemangal · 2025</span>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
   <!-- ── Footer ── -->
   <footer class="footer">
     <span class="brand-mark" aria-hidden="true">✦</span>
     <strong>Travel with Faisal</strong>
-    <p>© 2025 · All photographs by Faisal ·
-      <a href="https://github.com/faisalahmedbijoy" target="_blank" rel="noopener noreferrer">GitHub</a>
-    </p>
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/fbijoy" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer-social-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+      </a>
+      <a href="https://github.com/faisalahmedbijoy" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="footer-social-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <a href="mailto:faisal.cse16.kuet@gmail.com" aria-label="Email" class="footer-social-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      </a>
+    </div>
+    <p>© 2025 · All photographs by Faisal</p>
   </footer>
 
   <!-- ── Lightbox ── -->
@@ -225,7 +329,15 @@
       <img class="lb-img" id="lbImg" src="" alt="">
       <figcaption class="lb-caption">
         <span class="lb-location" id="lbLocation"></span>
-        <span class="lb-counter" id="lbCounter"></span>
+        <div class="lb-actions">
+          <span class="lb-counter" id="lbCounter"></span>
+          <button class="lb-action-btn" id="lbShare" aria-label="Share photo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </button>
+          <a class="lb-action-btn" id="lbDownload" href="#" download aria-label="Download photo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+        </div>
       </figcaption>
     </figure>
   </div>

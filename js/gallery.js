@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCounters();
   initActiveNav();
   initThemeSwitcher();
+  initContactForm();
 });
 
 // ── Theme Switcher ─────────────────────────────────────────
@@ -441,10 +442,17 @@ function renderPhotos() {
 
   slice.forEach((photo, i) => {
     const item = document.createElement('div');
-    item.className = 'photo-item';
+    item.className = 'photo-item skeleton';
     item.setAttribute('role', 'listitem');
-    item.innerHTML = `
-      <img src="${photo.src}" alt="Photo from ${photo.destName}" loading="lazy">
+
+    const img = document.createElement('img');
+    img.alt     = `Photo from ${photo.destName}`;
+    img.loading = 'lazy';
+    img.onload  = () => item.classList.remove('skeleton');
+    img.onerror = () => item.classList.remove('skeleton');
+    img.src     = photo.src;
+
+    item.innerHTML += `
       <div class="photo-item-overlay" aria-hidden="true">
         <span class="photo-item-label">${photo.destName}</span>
       </div>
@@ -455,6 +463,8 @@ function renderPhotos() {
         </svg>
       </div>
     `;
+    item.insertBefore(img, item.firstChild);
+
     item.addEventListener('click', () => openLightbox(visible, i));
     item.tabIndex = 0;
     item.setAttribute('aria-label', `Open photo from ${photo.destName}`);
@@ -499,6 +509,26 @@ function initLightbox() {
     if (Math.abs(dx) > 48) navigateLb(dx < 0 ? 1 : -1);
     touchStartX = null;
   }, { passive: true });
+
+  // Share button
+  const shareBtn = $('lbShare');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async () => {
+      const photo = lbPhotos[lbIndex];
+      const url   = window.location.origin + '/' + photo.src;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: `Travel with Faisal — ${photo.destName}`, url });
+        } catch (_) { /* user cancelled */ }
+      } else {
+        try {
+          await navigator.clipboard.writeText(url);
+          shareBtn.title = 'Link copied!';
+          setTimeout(() => { shareBtn.title = ''; }, 2000);
+        } catch (_) {}
+      }
+    });
+  }
 }
 
 function openLightbox(photos, index) {
@@ -541,6 +571,12 @@ function showLbPhoto() {
 
   $('lbLocation').textContent = photo.destName;
   $('lbCounter').textContent  = `${lbIndex + 1} / ${lbPhotos.length}`;
+
+  const dl = $('lbDownload');
+  if (dl) {
+    dl.href     = photo.src;
+    dl.download = photo.src.split('/').pop();
+  }
 
   const multiPhoto = lbPhotos.length > 1;
   $('lbPrev').style.display = multiPhoto ? '' : 'none';
@@ -647,6 +683,55 @@ function initActiveNav() {
   }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
 
   sections.forEach(s => obs.observe(s));
+}
+
+// ── Contact Form ───────────────────────────────────────────
+function initContactForm() {
+  const form     = $('contactForm');
+  const feedback = $('formFeedback');
+  if (!form) return;
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name  = form.querySelector('#cf-name');
+    const email = form.querySelector('#cf-email');
+    const dest  = form.querySelector('#cf-dest');
+    const msg   = form.querySelector('#cf-msg');
+    let   valid = true;
+
+    [name, email, msg].forEach(el => {
+      el.classList.remove('invalid');
+      if (!el.value.trim()) { el.classList.add('invalid'); valid = false; }
+    });
+    if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      email.classList.add('invalid');
+      valid = false;
+    }
+
+    if (!valid) {
+      showFeedback(feedback, 'Please fill in all required fields correctly.', false);
+      return;
+    }
+
+    const subject = `Travel Together — ${dest.value.trim() || 'Adventure'}`;
+    const body    = `Hi Faisal,\n\nName: ${name.value.trim()}\nEmail: ${email.value.trim()}\nDestination: ${dest.value.trim() || 'TBD'}\n\n${msg.value.trim()}`;
+    window.location.href = `mailto:faisal.cse16.kuet@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    showFeedback(feedback, 'Opening your email client… Thanks for reaching out!', true);
+    form.reset();
+  });
+
+  form.querySelectorAll('input, textarea').forEach(el => {
+    el.addEventListener('input', () => el.classList.remove('invalid'));
+  });
+}
+
+function showFeedback(el, message, success) {
+  el.textContent = message;
+  el.className   = 'form-feedback ' + (success ? 'success' : 'error');
+  el.hidden      = false;
+  setTimeout(() => { el.hidden = true; }, 5000);
 }
 
 // ── Back to Top ────────────────────────────────────────────
