@@ -115,9 +115,16 @@ const DESTINATIONS = [
 // Add { name, country, tagline, lat, lng } for any place you visited
 // without images. They appear on the map as outlined dots.
 const EXTRA_PLACES = [
-  // Example:
-  { name: 'Sylhet', country: 'Bangladesh', tagline: 'City of Shrines', lat: 24.8949, lng: 91.8687 },
-  { name: 'Kolkata', country: 'India', tagline: 'City of Joy', lat: 22.5726, lng: 88.3639 },
+  { name: 'Sylhet',     country: 'Bangladesh', tagline: 'City of Shrines',          lat: 24.8949, lng: 91.8687 },
+  { name: 'Kolkata',    country: 'India',       tagline: 'City of Joy',              lat: 22.5726, lng: 88.3639 },
+  { name: 'Khulna',     country: 'Bangladesh', tagline: 'Gateway to the Sundarbans', lat: 22.8456, lng: 89.5403 },
+  { name: 'Kuakata',    country: 'Bangladesh', tagline: 'Daughter of the Sea',        lat: 21.8311, lng: 90.1191 },
+  { name: 'Bhola',      country: 'Bangladesh', tagline: 'Land of Rivers',             lat: 22.6857, lng: 90.6481 },
+  { name: 'Bogra',      country: 'Bangladesh', tagline: 'Gateway to the North',       lat: 24.8465, lng: 89.3773 },
+  { name: 'Chittagong', country: 'Bangladesh', tagline: 'Port City of Bangladesh',    lat: 22.3569, lng: 91.7832 },
+  { name: 'Barisal',    country: 'Bangladesh', tagline: 'Venice of the East',         lat: 22.7010, lng: 90.3535 },
+  { name: 'Rangpur',    country: 'Bangladesh', tagline: 'City of the North',          lat: 25.7439, lng: 89.2752 },
+  { name: 'Cumilla',    country: 'Bangladesh', tagline: 'Land of Mainamati',          lat: 23.4607, lng: 91.1809 },
 ];
 
 // Flat list: { src, destId, destName }
@@ -243,8 +250,8 @@ function buildMap() {
     weight: 2, opacity: 1, fillOpacity: 0.9,
   };
   const noPhotoStyle = {
-    radius: 7, fillColor: 'transparent', color: '#c8a96a',
-    weight: 2, opacity: 0.75, fillOpacity: 0,
+    radius: 10, fillColor: '#6abf7a', color: '#6abf7a',
+    weight: 2.5, opacity: 1, fillOpacity: 0.25, dashArray: '5 4',
   };
 
   DESTINATIONS.forEach(dest => {
