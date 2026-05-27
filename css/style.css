@@ -616,6 +616,76 @@ ul    { list-style: none; }
 }
 .about-img:hover img { transform: scale(1.04); }
 
+/* ── Travel Together ── */
+.travel-together-section {
+  padding-block: 100px;
+  border-top: 1px solid var(--border);
+}
+.together-wrap {
+  max-width: 680px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 64px);
+  text-align: center;
+}
+.together-h {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.18;
+  margin-block: 10px 22px;
+  letter-spacing: -0.02em;
+}
+.together-p {
+  color: var(--text-2);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 48px;
+}
+.together-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.together-contact-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface);
+  color: var(--text-1);
+  text-decoration: none;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.2s var(--ease);
+  text-align: left;
+}
+.together-contact-card:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  transform: translateY(-2px);
+}
+.together-contact-card svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.contact-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 3px;
+}
+.contact-value {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-1);
+  font-weight: 400;
+}
+
 /* ── Footer ── */
 .footer {
   text-align: center;
@@ -806,6 +876,7 @@ ul    { list-style: none; }
   .stats-strip { gap: 32px; }
   .section { padding-block: 72px; }
   .about-section { padding-block: 72px; }
+  .travel-together-section { padding-block: 72px; }
 }
 
 @media (max-width: 640px) {
